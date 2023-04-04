@@ -38,6 +38,7 @@
         // Calculate the new rotation values based on the time elapsed
         const timeElapsed = performance.now() / 1000; // Convert to seconds
         rotation.y = rotationSpeed * timeElapsed % 360; // Keep rotation within 0-360 degrees
+        rotation.z = rotationSpeed * timeElapsed % 360; // Keep rotation within 0-360 degrees
         
         // Update the rotation of the <a-entity> tag
         modelEntity.setAttribute('rotation', rotation);

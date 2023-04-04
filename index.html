@@ -14,6 +14,7 @@
           ⚠️⚠️⚠️
         -->
         <a-entity
+          id="model"
           position="0 0 0"
           scale="1 1 1"
           rotation="0 90 0"
@@ -22,5 +23,26 @@
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
+    <script>
+      // Get the <a-entity> tag for the model
+      const modelEntity = document.querySelector('#model');
+      
+      // Set the initial rotation of the model
+      let rotation = {x: 0, y: 0, z: 0};
+      modelEntity.setAttribute('rotation', rotation);
+      
+      // Set the rotation speed (in degrees per second)
+      const rotationSpeed = 30;
+      
+      // Update the rotation of the model every 10 milliseconds
+      setInterval(() => {
+        // Calculate the new rotation values based on the time elapsed
+        const timeElapsed = performance.now() / 1000; // Convert to seconds
+        rotation.y = rotationSpeed * timeElapsed % 360; // Keep rotation within 0-360 degrees
+        
+        // Update the rotation of the <a-entity> tag
+        modelEntity.setAttribute('rotation', rotation);
+      }, 10);
+    </script>
   </body>
 </html>

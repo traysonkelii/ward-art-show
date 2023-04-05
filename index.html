@@ -5,7 +5,7 @@
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <body style="margin : 0px; overflow: hidden;">
     <a-scene embedded arjs>
-      <a-marker type="pattern" preset="custom" url="pattern-art2_code.patt">
+      <a-marker type="pattern" preset="custom" url="pattern-art_code.patt">
         <!-- we use cors proxy to avoid cross-origin problems -->
         <!--
           ⚠️⚠️⚠️
@@ -14,7 +14,6 @@
           ⚠️⚠️⚠️
         -->
         <a-entity
-          id="model"
           position="0 0 0"
           scale="1 1 1"
           gltf-model="./white-sandstone-bricks-3d-model/white_sandstone_bricks_03_4k.gltf"
@@ -22,27 +21,5 @@
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
-    <script>
-      // Get the <a-entity> tag for the model
-      const modelEntity = document.querySelector('#model');
-      
-      // Set the initial rotation of the model
-      let rotation = {x: 30, y: 0, z: 60};
-      modelEntity.setAttribute('rotation', rotation);
-      
-      // Set the rotation speed (in degrees per second)
-      const rotationSpeed = 30;
-      
-      // Update the rotation of the model every 10 milliseconds
-      setInterval(() => {
-        // Calculate the new rotation values based on the time elapsed
-        const timeElapsed = performance.now() / 1000; // Convert to seconds
-        rotation.y = rotationSpeed * timeElapsed % 360; // Keep rotation within 0-360 degrees
-        rotation.z = rotationSpeed * timeElapsed % 360; // Keep rotation within 0-360 degrees
-        
-        // Update the rotation of the <a-entity> tag
-        modelEntity.setAttribute('rotation', rotation);
-      }, 10);
-    </script>
   </body>
 </html>

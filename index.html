@@ -7,7 +7,6 @@
 <script src="https://unpkg.com/aframe-look-at-component@0.1.2/dist/aframe-look-at-component.min.js"></script>
 <script src="https://unpkg.com/aframe-orbit-controls@0.1.0/dist/aframe-orbit-controls.min.js"></script>
 
-
 <body style="margin : 0px; overflow: hidden;">
   <a-scene embedded arjs>
     <a-marker type="pattern" preset="custom" url="pattern-art2_code.patt">
@@ -23,14 +22,45 @@
       <!-- <a-assets>
         <a-asset-item id="earth-gltf" src="./earth/scene.gltf"></a-asset-item>
       </a-assets> -->
-  
-      <a-entity id="earth" gltf-model="./earth/scene.gltf" position="0 1 -5" rotation="0 180 0" scale="0.5 0.5 0.5" look-at="[camera]"></a-entity>
-      <a-camera position="0 1 0" orbit-controls="enabled: true; target: #earth; initialPosition: 0 1 10"></a-camera>
-  
+
+      <a-entity id="earth" gltf-model="./earth/scene.gltf" position="0 1 -5" rotation="0 180 0" scale="0.5 0.5 0.5"
+        look-at="[camera]"></a-entity>
+      <a-camera position="0 1 0"></a-camera>
+
 
     </a-marker>
     <!-- <a-entity camera></a-entity> -->
   </a-scene>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      let earth = document.querySelector('#earth');
+      let touchStart = { x: 0, y: 0 };
+      let rotation = { x: 0, y: 0 };
+
+      earth.addEventListener('touchstart', (event) => {
+        touchStart.x = event.touches[0].clientX;
+        touchStart.y = event.touches[0].clientY;
+      });
+
+      earth.addEventListener('touchmove', (event) => {
+        let deltaX = event.touches[0].clientX - touchStart.x;
+        let deltaY = event.touches[0].clientY - touchStart.y;
+
+        rotation.x = deltaY * 0.25;
+        rotation.y = deltaX * 0.25;
+
+        earth.setAttribute('rotation', {
+          x: rotation.x,
+          y: earth.getAttribute('rotation').y + rotation.y,
+          z: 0,
+        });
+      });
+
+      earth.addEventListener('touchend', (event) => {
+        touchStart = { x: 0, y: 0 };
+      });
+    });
+  </script>
   <!-- <script>
     // Get the <a-entity> tag for the model
     const modelEntity = document.querySelector('#earth-gltf');

@@ -14,8 +14,8 @@
           You need to host your own proxy and use it instead. The proxy is based on CORS Anywhere (see https://github.com/Rob--W/cors-anywhere).
           ⚠️⚠️⚠️
         -->
-      <a-entity id="model" position="0 0 0" scale="1 1 1"
-        gltf-model="./earth/scene.gltf"></a-entity>
+      <a-entity id="model" position="0 0 -5" scale="1 1 1" gltf-model="./earth/scene.gltf"></a-entity>
+
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
@@ -24,7 +24,7 @@
     const modelEntity = document.querySelector('#model');
 
     // Set the initial rotation of the model
-    let rotation = { x: 0, y: 0, z: 0 };
+    let rotation = { x: 180, y: 0, z: 0 };
     modelEntity.setAttribute('rotation', rotation);
 
     // Set the rotation speed (in degrees per second)
@@ -35,7 +35,7 @@
       // Calculate the new rotation values based on the time elapsed
       const timeElapsed = performance.now() / 1000; // Convert to seconds
       rotation.y = rotationSpeed * timeElapsed % 360; // Keep rotation within 0-360 degrees
-      rotation.z = rotationSpeed * timeElapsed % 360; // Keep rotation within 0-360 degrees
+      // rotation.z = rotationSpeed * timeElapsed % 360; // Keep rotation within 0-360 degrees
 
       // Update the rotation of the <a-entity> tag
       modelEntity.setAttribute('rotation', rotation);
